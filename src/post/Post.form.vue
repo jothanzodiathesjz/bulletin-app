@@ -1,0 +1,160 @@
+<template>
+  <div class="w-full flex flex-col relative">
+    <Alert
+      class="w-full lg:w-80 absolute right-0 bg-white shadow-md"
+      v-if="message"
+      variant="destructive"
+    >
+      <ExclamationTriangleIcon v-if="state === 'ERROR'" class="w-4 h-4" />
+      <CheckCircledIcon v-if="state === 'SUCCESS'" class="w-4 h-4" />
+      <AlertTitle>{{ state === "SUCCESS" ? "Success" : "Error" }}</AlertTitle>
+      <AlertDescription>
+        {{ message }}
+      </AlertDescription>
+    </Alert>
+    <div class="w-full flex flex-row justify-start gap-3 items-center">
+      <button
+        @click="$router.push({ name: 'dashboard-post-list' })"
+        class="p-2 rounded-md hover:bg-gray-100 active:scale-95 active:opacity-75 transition-transform"
+      >
+        <ArrowLeftIcon class="cursor-pointer h-6 w-6 font-bold" />
+      </button>
+      <span class="text-lg">Form Post</span>
+    </div>
+    <div class="lg:w-1/2 h-full flex flex-col pt-6 gap-4">
+      <div class="w-full flex flex-col gap-2">
+        <span>Judul</span>
+        <Input
+          placeholder="Masukkan Judul"
+          :value="data.title"
+          @input="(v) => (data.title = v.toLocaleString())"
+        />
+      </div>
+      <div class="w-full flex flex-col gap-2">
+        <span>Description</span>
+        <Textarea
+          placeholder="Tulis Deksripsi"
+          class="h-44"
+          :value="data.body"
+          @input="(v) => (data.body = v)"
+          >test</Textarea
+        >
+      </div>
+      <div v-if="user.board_id === 4" class="w-full flex flex-col gap-2">
+        <span>Board</span>
+        <BoardList :selected="selected" @select="(v) => selected = v" />
+      </div>
+      <div class="w-full flex justify-start">
+        <ButtonBulletin :disabled="state === 'LOADING'" @click="upsert()">
+          <ReloadIcon
+            v-if="state === 'LOADING'"
+            class="w-4 h-4 mr-2 animate-spin"
+          />
+          {{ isUpdate ? "Update" : "Tambah" }}</ButtonBulletin
+        >
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import Textarea from "@/components/ui/textarea/Textarea.vue";
+import Input from "@/components/ui/input/Input.vue";
+import ButtonBulletin from "@/components/extra/button/Button.bulletin.vue";
+import container from "@/di";
+import { TOKENS } from "@/tokens";
+import { onMounted, ref } from "vue";
+import { DomainPost } from "@/domain/Post";
+import {
+  ArrowLeftIcon,
+  ExclamationTriangleIcon,
+  CheckCircledIcon,
+  ReloadIcon,
+} from "@radix-icons/vue";
+import type { RequestState } from "@/http/state";
+import Alert from "@/components/ui/alert/Alert.vue";
+import AlertTitle from "@/components/ui/alert/AlertTitle.vue";
+import AlertDescription from "@/components/ui/alert/AlertDescription.vue";
+import { useRoute } from "vue-router";
+import BoardList from "@/board/BoardList.vue";
+
+// const router = useRouter();
+const route = useRoute();
+const userData = localStorage.getItem("user");
+const user = ref(userData ? JSON.parse(userData) : null);
+
+const repository = container.get(TOKENS.PostRepository);
+
+const data = ref(DomainPost.formDataEmpty());
+const selected = ref<number | null>(null);
+
+const state = ref<RequestState>("IDLE");
+const message = ref("");
+
+const isUpdate = ref(false);
+
+async function upsert() {
+  const id = JSON.parse(localStorage.getItem("user") ?? "");
+  data.value.user_id = id.id;
+  state.value = "LOADING";
+  try {
+    if (isUpdate.value) {
+      await repository.updatePost(
+        {
+          ...data.value,
+          tags_id: [],
+          board_id: user.value.board_id === 4 && user.value.is_head === 1 ? selected.value : user.value.board_id,
+        },
+        route.params.id as string
+      );
+    } else {
+      await repository.createPost({
+        ...data.value,
+        tags_id: [],
+        board_id: boardValidate() ? selected.value : user.value.board_id,
+      });
+    }
+    state.value = "SUCCESS";
+    message.value = "Post created successfully";
+  } catch (error) {
+    state.value = "ERROR";
+    message.value = (error as unknown as Error).message
+  }
+
+  if (state.value === "SUCCESS" || state.value === "ERROR") {
+    setTimeout(() => {
+      state.value === "IDLE";
+      message.value = "";
+    }, 2000);
+  }
+}
+
+function boardValidate() {
+  if (
+    user.value.board_id === 4 && user.value.is_head === 1 ||
+    user.value.is_admin
+  ) {
+    return true;
+  }
+  return false;
+}
+
+async function getPost() {
+  const result = await repository.get(route.params.id as string);
+  data.value = {
+    body: result.body,
+    title: result.title,
+    tags_id: [],
+    user_id: "",
+    board_id: result.board_id,
+  };
+  selected.value = result.board_id;
+}
+
+onMounted(async () => {
+  if (route.params.id) {
+    isUpdate.value = true;
+    getPost();
+  }
+});
+</script>
