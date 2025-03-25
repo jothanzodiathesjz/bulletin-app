@@ -5,8 +5,9 @@
             class="w-7 h-7 transition-transform duration-200 active:scale-90 text-white"
             />
         </SheetTrigger>
-        <div class="w-full flex">
-            <span class="text-lg font-bold text-white uppercase">Bulletin<span class="font-bold text-2xl text-blue-">.</span></span>
+        <div class="w-full flex flex-row justify-start items-center gap-3">
+            <img class="w-7 h-7" src="/logo.svg" alt="">
+            <span class="text-lg font-bold text-white uppercase">Bulletin <span class="text-primary-main">Board</span><span class="font-bold text-2xl text-blue-">.</span></span>
         </div>
     </div>
 </template>
