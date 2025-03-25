@@ -63,6 +63,7 @@ import { useAuthStore } from "./store/Auth.store";
 import { ReloadIcon } from "@radix-icons/vue";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ExclamationTriangleIcon } from "@radix-icons/vue";
+import { useRouter } from "vue-router";
 
 const $auth = useAuthStore();
 
@@ -71,6 +72,7 @@ const password = ref("");
 const disabled = ref(true);
 const loading = ref(false);
 const isError = ref(false)
+const router = useRouter()
 
 
 async function handleSubmit() {
@@ -81,12 +83,12 @@ async function handleSubmit() {
       new DomainAuth({ username: username.value, password: password.value })
     );
     disabled.value = false;
+    router.push({ name: "home" });
   } catch (error) {
     disabled.value = false;
     isError.value = true;
-  } finally {
-    loading.value = false;
-  }
+  } 
+  loading.value = false
 }
 
 watch(

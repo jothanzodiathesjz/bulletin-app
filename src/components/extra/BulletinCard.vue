@@ -1,11 +1,8 @@
 <template>
   <div
-    class="w-full rounded-2xl shadow-md p-5 relative overflow-hidden cursor-pointer"
+    class="w-full rounded-2xl shadow-md p-5 bg-white relative overflow-hidden cursor-pointer"
     :id="data.id.toString()"
     @click="$router.push({ name: 'post', params: { id: data.id } })"
-    :style="{
-      backgroundColor: `${getRandomBackgroundColor()}`,
-    }"
   >
     <!-- Card Content -->
     <div  class="flex flex-col h-full pt-3">
@@ -51,31 +48,30 @@ import {
   DrawingPinIcon,
 } from "@radix-icons/vue";
 import type { PostAttributes } from "@/domain/Post";
-import { ref } from "vue";
 
 defineProps<{
   data: PostAttributes;
 }>();
 
-const backgroundColors = ref([
-  "#FFFFFF", // Putih
-  "#E3F2FD", // Biru muda
-  "#F5F5F5", // Abu-abu muda
-  "#E8F5E9", // Hijau pastel
-  "#FFFDE7", // Kuning muda
-  "#FCE4EC", // Merah muda
-  "#F3E5F5", // Ungu muda
-  "#FFF3E0", // Oranye muda
-  "#E0F2F1", // Teal muda
-  "#EDE7F6", // Lavender
-]);
+// const backgroundColors = ref([
+//   "#FFFFFF", // Putih
+//   "#E3F2FD", // Biru muda
+//   "#F5F5F5", // Abu-abu muda
+//   "#E8F5E9", // Hijau pastel
+//   "#FFFDE7", // Kuning muda
+//   "#FCE4EC", // Merah muda
+//   "#F3E5F5", // Ungu muda
+//   "#FFF3E0", // Oranye muda
+//   "#E0F2F1", // Teal muda
+//   "#EDE7F6", // Lavender
+// ]);
 
-function getRandomBackgroundColor() {
-  // Generate indeks acak berdasarkan panjang array
-  const randomIndex = Math.floor(Math.random() * backgroundColors.value.length);
-  // Kembalikan warna background sesuai indeks acak
-  return backgroundColors.value[randomIndex];
-}
+// function getRandomBackgroundColor() {
+//   // Generate indeks acak berdasarkan panjang array
+//   const randomIndex = Math.floor(Math.random() * backgroundColors.value.length);
+//   // Kembalikan warna background sesuai indeks acak
+//   return backgroundColors.value[randomIndex];
+// }
 
 </script>
 
