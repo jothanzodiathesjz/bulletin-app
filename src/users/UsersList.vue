@@ -30,8 +30,8 @@
       >
         <template #table-header>
           <tr>
-            <th class="table-header-custom text-start">Tanggal</th>
-            <th class="table-header-custom text-start">Judul</th>
+            <th class="table-header-custom text-start">Nama</th>
+            <th class="table-header-custom text-start">Username</th>
             <th class="table-header-custom text-start">Action</th>
           </tr>
         </template>

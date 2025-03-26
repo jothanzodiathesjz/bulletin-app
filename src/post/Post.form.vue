@@ -131,8 +131,7 @@ async function upsert() {
 
 function boardValidate() {
   if (
-    user.value.board_id === 4 && user.value.is_head === 1 ||
-    user.value.is_admin
+    user.value.board_id === 4 && user.value.is_head === 1 
   ) {
     return true;
   }
