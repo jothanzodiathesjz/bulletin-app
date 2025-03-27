@@ -17,7 +17,6 @@
 
 <script setup lang="ts">
 import type { DateRange } from "radix-vue";
-import ButtonBulletin from "./button/Button.bulletin.vue";
 
 import {
   Popover,
