@@ -1,7 +1,7 @@
 <template>
-    <div class="w-full flex flex-col gap-2 h-full py-5 px-3 lg:px-10">
-        <DashboardHeader/>
-        <div class="w-full flex flex-row justify-start border-b pb-2">
+    <div class="w-full flex flex-col gap-2 h-full py-5 px-3 lg:px-32 xl:px-52">
+        <div class="w-full flex flex-col gap-3 lg:flex-row justify-center lg:justify-between border-b pb-2">
+            <DashboardHeader/>
             <div class="bg-muted rounded-md p-2 flex flex-row gap-2">
                 <RouterLink
                 v-slot="{navigate, isActive}"
@@ -20,11 +20,13 @@
                 </RouterLink>
             </div>
         </div>
-        <RouterView v-slot="{ Component }">
-                <Transition :name="''" mode="out-in">
-                    <component :is="Component" />
-                </Transition>
-            </RouterView>
+            <RouterView v-slot="{ Component }">
+                    <Transition :name="''" mode="out-in">
+                        <component :is="Component" />
+                    </Transition>
+                </RouterView>
+
+        
     </div>
 </template>
 

@@ -1,11 +1,11 @@
 <template>
   <Popover>
     <PopoverTrigger as-child>
-      <ButtonBulletin variant="outline" :size="'lg'" class="px-5">
-        <CalendarIcon class="h-4 w-4" />
-      </ButtonBulletin>
+      <button :size="'lg'" class="px-5 bg-primary-main py-3 rounded-full">
+        <CalendarIcon class="h-4 w-4 text-white" />
+      </button>
     </PopoverTrigger>
-    <PopoverContent :align="'start'" class="w-auto p-0">
+    <PopoverContent :align="'end'" class="w-auto p-0">
       <RangeCalendar
         v-model="dateValue"
         initial-focus

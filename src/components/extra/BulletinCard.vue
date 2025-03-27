@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full rounded-2xl shadow-md p-5 bg-white relative overflow-hidden cursor-pointer"
+    class="w-full rounded-2xl shadow-md p-5 bg-white relative overflow-hidden cursor-pointer border border-primary-surface"
     :id="data.id.toString()"
     @click="$router.push({ name: 'post', params: { id: data.id } })"
   >
@@ -11,7 +11,7 @@
       >
 
       <div
-        class="text-gray-600 text-md mb-6 h-[12rem] pt-3 italic overflow-hidden"
+        class="text-gray-600 text-md mb-6 h-[12rem] pt-3 overflow-hidden"
       >
         {{ data.body }} . . .
       </div>
@@ -36,8 +36,8 @@
 
     <!-- "New" Tag -->
     <div class="absolute top-0 right-0">
-      <div class="bg-orange-200 text-white text-xs px-6 py-2 rounded-bl-lg">
-        <DrawingPinIcon />
+      <div class=" text-white text-xs px-6 py-2 rounded-bl-lg">
+        <DrawingPinIcon class="text-primary-main"/>
       </div>
     </div>
   </div>

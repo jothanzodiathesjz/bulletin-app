@@ -123,8 +123,8 @@ export class HttpClient {
         });
 
         if (response.status === 401) {
-            // localStorage.clear();
-            // window.location.reload();
+            localStorage.clear();
+            window.location.reload();
             return await response.json();
         }
 

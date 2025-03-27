@@ -9,6 +9,7 @@ export type PostAttributes = & Timestamps & {
     user_id: number;
     viewcount: number;
     comment_count: number;
+    reaction_count: number;
     reactions: EmojiAttributes[];
     board_id: number;
     user: User;
@@ -62,6 +63,8 @@ export class DomainPost {
     body: string;
     user_id: number;
     viewcount: number;
+    reaction_count: number;
+    comment_count: number;
     updated_at?: string;
     deleted_at?: string;
     created_at: string;
@@ -73,6 +76,8 @@ export class DomainPost {
         this.title = init.title;
         this.user_id = init.user_id;
         this.viewcount = init.viewcount;
+        this.comment_count = init.comment_count;
+        this.reaction_count = init.reaction_count;
         this.updated_at = init.updated_at;
         this.deleted_at = init.deleted_at;
         this.created_at = init.created_at;

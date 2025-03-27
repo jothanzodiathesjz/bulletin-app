@@ -3,27 +3,29 @@
     ref="cardContainer"
     class="relative w-full h-full min-h-0 flex flex-col overflow-auto pb-10"
   >
-    <div class="w-full h-full min-h-0 flex flex-col p-2 lg:p-5 gap-3">
-      <div class="w-full flex flex-col p-2 rounded-lg mb-3">
-        <div class="w-full flex flex-row items-center gap-3 mt-4">
-          <DateInput
-            :value="datevalue"
-            @update:value="
-              (d) => [
-                ((datevalue.start = d.start), (datevalue.end = d.end)),
-                getDataUsingDate(),
-              ]
-            "
-          />
-          <Input
-            class="bg-white"
-            placeholder="Search"
-            :value="search"
-            :debounce="300"
-            @input="(v) => [(search = v.toString()), handleSearch()]"
-          />
+  <div class="w-full flex flex-col bg-white mb-3 pb-3 px-8">
+    <div class="w-full flex flex-row items-center gap-3 mt-4">
+      <div class="relative w-full items-center">
+        <Input id="search" :value="search" type="text" placeholder="Search..." class="pl-10 rounded-2xl" 
+        :debounce="300"
+          @input="(v) => [(search = v.toString()), handleSearch()]"
+        />
+          <span class="absolute start-0 inset-y-0 flex items-center justify-center px-2">
+            <MagnifyingGlassIcon class="size-6 text-muted-foreground" />
+          </span>
         </div>
-      </div>
+      <DateInput
+        :value="datevalue"
+        @update:value="
+          (d) => [
+            ((datevalue.start = d.start), (datevalue.end = d.end)),
+            getDataUsingDate(),
+          ]
+        "
+      />
+    </div>
+  </div>
+    <div class="w-full h-full min-h-0 flex flex-col p-2 lg:p-5 gap-3">
       <div class="flex flex-col gap-5 p-3">
         <BulletinCard
           v-for="(test, key) in result.data"
@@ -58,6 +60,7 @@ import { onMounted, onUnmounted, ref, type Ref } from "vue";
 import { useIntersectionObserver } from "@vueuse/core";
 import type { RequestState } from "@/http/state";
 import type { DateRange } from "radix-vue";
+import { MagnifyingGlassIcon } from "@radix-icons/vue";
 
 const tableEndEl = ref<HTMLDivElement | null>(null);
 const cardContainer = ref<HTMLDivElement | null>(null);

@@ -21,7 +21,7 @@
       </button>
       <span class="text-lg">Form Post</span>
     </div>
-    <div class="lg:w-1/2 h-full flex flex-col pt-6 gap-4">
+    <div v-if="Loaded" class="lg:w-full h-full flex flex-col pt-6 gap-4">
       <div class="w-full flex flex-col gap-2">
         <span>Judul</span>
         <Input
@@ -53,6 +53,9 @@
           {{ isUpdate ? "Update" : "Tambah" }}</ButtonBulletin
         >
       </div>
+    </div>
+    <div v-else class="w-full h-[50vh] flex justify-center items-center">
+      Loading...
     </div>
   </div>
 </template>
@@ -92,6 +95,7 @@ const state = ref<RequestState>("IDLE");
 const message = ref("");
 
 const isUpdate = ref(false);
+const Loaded = ref(true);
 
 async function upsert() {
   const id = JSON.parse(localStorage.getItem("user") ?? "");
@@ -139,7 +143,9 @@ function boardValidate() {
 }
 
 async function getPost() {
-  const result = await repository.get(route.params.id as string);
+  Loaded.value = false
+  try {
+    const result = await repository.get(route.params.id as string);
   data.value = {
     body: result.body,
     title: result.title,
@@ -148,6 +154,12 @@ async function getPost() {
     board_id: result.board_id,
   };
   selected.value = result.board_id;
+  } catch (error) {
+    console.log(error)
+  } finally {
+    Loaded.value = true
+  }
+ 
 }
 
 onMounted(async () => {

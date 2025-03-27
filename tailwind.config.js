@@ -31,12 +31,14 @@ module.exports = {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
-          surface: "#FFB577", // Header background color
-          border: "#FF9A47", // Slightly darker orange for borders
-          main: "#FF8929", // Main orange color
-          hover: "#FF7A1A", // Darker orange for hover
-          pressed: "#FF6B00", // Even darker for pressed state
-          focus: "#FFAF66",
+          main: "#00329A",
+          surface: "#AADCFF",
+          border: "#5082EA",
+          hover: "#1446AE",
+          pressed: "#001E86",
+          focus: "#5082EA",
+          logo: "#0C4E97",
+          light: "#F0F7FF",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -46,6 +48,7 @@ module.exports = {
           main: "#FFE6D1", // Main cream color
           hover: "#FFD6B8", // Darker cream for hover
           pressed: "#FFC69F", // Even darker for pressed state
+          mainBg: "#f4f5f9",
         },
         black: "#1A1A1A", // Text color from design
         "off-white": "#FFF8F3", // Background color

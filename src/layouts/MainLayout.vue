@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-screen relative lg:w-[35rem] lg:mx-auto flex flex-col bg-secondary-surface border">
+    <div class="w-full h-screen relative lg:w-[35rem] lg:mx-auto flex flex-col bg-secondary-mainBg border">
         <Sheet>
             <Header/>
             <Sidebar/>
