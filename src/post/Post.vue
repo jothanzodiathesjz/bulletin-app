@@ -3,7 +3,7 @@
     ref="cardContainer"
     class="relative w-full h-full min-h-0 flex flex-col overflow-auto pb-10"
   >
-  <div class="w-full flex flex-col bg-white mb-3 pb-3 px-8">
+  <div class="w-full flex flex-col bg-white mb-3 pb-3 px-8 sticky top-0 z-40 border-b">
     <div class="w-full flex flex-row items-center gap-3 mt-4">
       <div class="relative w-full items-center">
         <Input id="search" :value="search" type="text" placeholder="Search..." class="pl-10 rounded-2xl" 

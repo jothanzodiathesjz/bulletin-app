@@ -30,6 +30,7 @@
             :value="data.fullname"
             @input="(v) => (data.fullname = v.toLocaleString())"
           />
+
         </div>
         <div class="w-full flex flex-col gap-2">
           <span>Username</span>
@@ -37,7 +38,10 @@
             placeholder="Username"
             :value="data.username"
             @input="(v) => (data.username = v.toLocaleString())"
+            @focus="() => usernameInputFocus = true"
+            @blur="() => usernameInputFocus = false"
           />
+          <span v-if="data.username.length < 6 && usernameInputFocus" class="text-red-500 text-sm">Username minimal 6 karakter</span>
         </div>
         <div v-if="!isUpdate" class="w-full flex flex-col gap-2">
           <span>Password</span>
@@ -72,7 +76,12 @@
         <BoardList :selected="selected" @select="(v) => (selected = v)" />
       </div>
       <div class="w-full flex justify-start">
-        <ButtonBulletin :disabled="state === 'LOADING'" @click="upsert()">
+        <ButtonBulletin :disabled="
+          state === 'LOADING' || 
+          data.username.length < 6 ||
+          !selected ||
+          (password !== confirmPassword && !isUpdate)
+          " @click="upsert()">
           <ReloadIcon
             v-if="state === 'LOADING'"
             class="w-4 h-4 mr-2 animate-spin"
@@ -117,6 +126,7 @@ const message = ref("");
 const password = ref("");
 const confirmPassword = ref("");
 const isHead = ref(0);
+const usernameInputFocus = ref(false);
 
 const isUpdate = ref(false);
 

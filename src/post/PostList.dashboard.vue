@@ -37,7 +37,7 @@
           <th class="table-header-custom text-start">Action</th>
         </tr>
       </template>
-      <tr v-for="(post, index) in result.data" class="table-row-custom">
+      <tr v-for="(post, index) in result.data" class="table-row-custom hover:bg-gray-50">
         <td v-if="width > 1024" class="table-cell-custom">
           {{
             ((result.current_page ?? 0) - 1) * (result.per_page ?? 0) +
