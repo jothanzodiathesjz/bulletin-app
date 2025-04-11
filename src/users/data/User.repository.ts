@@ -15,7 +15,7 @@ export class UserHttpRepository implements UserRepository {
     }
 
     async deleteUser(id_post: string): Promise<DomainUser[]> {
-        const response = await this.client.DELETE('users/' + id_post);
+        const response = await this.client.DELETE('/api/users/' + id_post);
         return response.data?.map((v: UserAttributes) => new DomainUser(v))
     }
 
