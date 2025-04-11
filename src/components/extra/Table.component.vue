@@ -13,12 +13,15 @@
       <tbody v-if="!empty" class="table-body-custom">
         <slot></slot>
       </tbody>
+      <tbody v-if="empty" class="table-body-custom">
+        <tr class="">
+          <td colspan="6" class="text-neutral-60 text-center py-7">No Data Found</td>
+        </tr>
+      </tbody>
       <tfoot class="border-t border-b border-neutral-70 sticky bottom-0">
         <slot name="table-foot"></slot>
       </tfoot>
-      <div v-if="empty" class="w-full flex justify-center items-center p-1">
-        <span class="text-neutral-60">No Data Found</span>
-      </div>
+      
     </table>
     <div ref="tableEndEl" class="w-full flex justify-center items-center p-1">
       <!-- Intersection observer target -->
