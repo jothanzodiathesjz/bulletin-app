@@ -60,7 +60,6 @@
         </div>
       </div>
       <div
-        v-if="user.board_id === 4 || user.board_id === 0"
         class="w-full flex flex-col gap-2"
       >
         <span>Board</span>
