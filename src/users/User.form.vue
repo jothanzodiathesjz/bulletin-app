@@ -66,7 +66,7 @@
       
       <div class="w-full flex flex-col gap-2">
         <div class="w-full flex flex-col gap-2">
-        <span>Apakah Kepala Divisi?</span>
+        <span>Apakah sebagai admin?</span>
         <div class="w-32 flex flex-row border rounded">
           <button @click="isHead = 0" class="w-full p-2" :class="!isHead ? 'bg-gray-200' : ''">No</button>
           <button @click="isHead = 1" class="w-full p-2" :class="isHead ? 'bg-gray-200' : ''">Yes</button>

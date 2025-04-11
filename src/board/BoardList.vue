@@ -2,7 +2,7 @@
     <div class="w-full h-full">
       <div v-if="state === 'SUCCESS'" class="w-full flex flex-row gap-3 flex-wrap">
         <button
-          v-for="(tag, key) in boardList"
+          v-for="(tag, key) in boardList.filter((v) => validateAdmin() ? true :  filterBoard.includes(v.id))"
           :key="key"
           class="border border-primary-border p-3 rounded"
           :class="selected === tag.id ? 'bg-primary-surface' : ''"
@@ -30,10 +30,20 @@ import type { BoardAttributes } from "@/domain/Board";
   defineEmits<{
       (e: 'select', id: number): void;
   }>()
+  const user = JSON.parse(localStorage.getItem("user") ?? "");
   
   const repository = container.get(TOKENS.BoardRepository);
   const state = ref<RequestState>("LOADING");
   const boardList = ref<BoardAttributes[]>([]);
+  const filterBoard = [1,2,user.id as number];
+
+  function validateAdmin() {
+    if (user.id === 1 || user.id === 4) {
+      return true;
+    }
+
+    return false
+  }
   
   async function getTags() {
     state.value = "LOADING";
