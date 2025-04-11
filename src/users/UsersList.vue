@@ -20,7 +20,7 @@
       />
     </div>
     <TableComponent
-      :empty="false"
+      :empty="result.length === 0"
       :items-per-page="0"
       :total-items="result.length"
       :loading="loading"

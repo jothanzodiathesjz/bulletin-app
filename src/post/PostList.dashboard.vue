@@ -21,7 +21,7 @@
     </div>
     <!-- <pre>{{ width }}</pre> -->
     <TableComponent
-      :empty="false"
+      :empty="result.data.length === 0"
       :items-per-page="result.per_page ?? 0"
       :total-items="result.total ?? 0"
       :loading="loading"

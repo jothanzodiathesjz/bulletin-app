@@ -16,8 +16,10 @@
       <tfoot class="border-t border-b border-neutral-70 sticky bottom-0">
         <slot name="table-foot"></slot>
       </tfoot>
+      <div v-if="empty" class="w-full flex justify-center items-center p-1">
+        <span class="text-neutral-60">No Data Found</span>
+      </div>
     </table>
-
     <div ref="tableEndEl" class="w-full flex justify-center items-center p-1">
       <!-- Intersection observer target -->
     </div>
