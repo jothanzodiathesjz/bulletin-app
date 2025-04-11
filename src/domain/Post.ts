@@ -13,6 +13,7 @@ export type PostAttributes = & Timestamps & {
     reactions: EmojiAttributes[];
     board_id: number;
     user: User;
+    visible: boolean;
 }
 
 export type CommentsAttributes = & Timestamps & {
@@ -53,8 +54,8 @@ export type PostToDataAttributes = {
     title: string;
     body: string;
     user_id: string;
-    tags_id: number[];
     board_id: number;
+    visible: boolean;
 }
 
 export class DomainPost {
@@ -89,7 +90,7 @@ export class DomainPost {
             title: "",
             user_id: "",
             board_id: 0,
-            tags_id: []
+            visible: true,
         }
     }
 }
@@ -105,7 +106,8 @@ export type PostResponseArray = {
 
 export interface PostRepository {
     getAllPost(query?: IQueryMetadata): Promise<PostResponseArray>
-    get(id: string): Promise<PostWithCommentsAndTags>
+    getAllPostDashboard(query?: IQueryMetadata): Promise<PostResponseArray>
+    get(id: string): Promise<PostWithCommentsAndTags>;
     createComent(comment: CreateCommentAttributes, postId: string): Promise<PostWithCommentsAndTags>
     createPost(data: PostToDataAttributes): Promise<PostAttributes>;
     updatePost(data: PostToDataAttributes, id: string): Promise<PostAttributes>;

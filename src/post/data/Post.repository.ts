@@ -29,6 +29,22 @@ export class PostRepositoryHttp implements PostRepository {
             total: response.total
         };
     }
+    async getAllPostDashboard(query?: IQueryMetadata): Promise<PostResponseArray> {
+        console.log(query)
+        const response = await this.client.GET('/api/dashboard', query)
+        if (!response.data) {
+            throw new Error('Terjadi Kesalahan')
+        }
+
+        return {
+            data: response.data as PostWithCommentsAndTags[],
+            next_page: response.next_page,
+            per_page: response.per_page,
+            current_page: response.current_page,
+            previous_page: response.previous_page,
+            total: response.total
+        };
+    }
 
     async get(id: string): Promise<PostWithCommentsAndTags> {
         const response = await this.client.GET(`/api/posts/${id}`)

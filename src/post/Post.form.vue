@@ -40,9 +40,31 @@
           >test</Textarea
         >
       </div>
-      <div v-if="user.board_id === 4" class="w-full flex flex-col gap-2">
+      <div class="w-full flex flex-col gap-2">
+        <span>Visible</span>
+        <div class="w-32 flex flex-row border rounded">
+          <button
+            @click="data.visible = false"
+            class="w-full p-2"
+            :class="!data.visible ? 'bg-gray-200' : ''"
+          >
+            No
+          </button>
+          <button
+            @click="data.visible = true"
+            class="w-full p-2"
+            :class="data.visible ? 'bg-gray-200' : ''"
+          >
+            Yes
+          </button>
+        </div>
+      </div>
+      <div
+        v-if="user.board_id === 4 || user.board_id === 0"
+        class="w-full flex flex-col gap-2"
+      >
         <span>Board</span>
-        <BoardList :selected="selected" @select="(v) => selected = v" />
+        <BoardList :selected="selected" @select="(v) => (selected = v)" />
       </div>
       <div class="w-full flex justify-start">
         <ButtonBulletin :disabled="state === 'LOADING'" @click="upsert()">
@@ -106,23 +128,23 @@ async function upsert() {
       await repository.updatePost(
         {
           ...data.value,
-          tags_id: [],
-          board_id: user.value.board_id === 4 && user.value.is_head === 1 ? selected.value : user.value.board_id,
+          board_id: selected.value ?? user.value.board_id ?? 0,
         },
         route.params.id as string
       );
     } else {
       await repository.createPost({
         ...data.value,
-        tags_id: [],
-        board_id: boardValidate() ? selected.value : user.value.board_id,
+        board_id: selected.value ?? id.board_id ?? 0,
       });
     }
     state.value = "SUCCESS";
-    message.value = "Post created successfully";
+    message.value = isUpdate.value
+      ? "Post updated successfully"
+      : "Post created successfully";
   } catch (error) {
     state.value = "ERROR";
-    message.value = (error as unknown as Error).message
+    message.value = (error as unknown as Error).message;
   }
 
   if (state.value === "SUCCESS" || state.value === "ERROR") {
@@ -133,33 +155,23 @@ async function upsert() {
   }
 }
 
-function boardValidate() {
-  if (
-    user.value.board_id === 4 && user.value.is_head === 1 
-  ) {
-    return true;
-  }
-  return false;
-}
-
 async function getPost() {
-  Loaded.value = false
+  Loaded.value = false;
   try {
     const result = await repository.get(route.params.id as string);
-  data.value = {
-    body: result.body,
-    title: result.title,
-    tags_id: [],
-    user_id: "",
-    board_id: result.board_id,
-  };
-  selected.value = result.board_id;
+    data.value = {
+      body: result.body,
+      title: result.title,
+      user_id: "",
+      board_id: result.board_id,
+      visible: result.visible,
+    };
+    selected.value = result.board_id;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   } finally {
-    Loaded.value = true
+    Loaded.value = true;
   }
- 
 }
 
 onMounted(async () => {

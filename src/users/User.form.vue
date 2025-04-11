@@ -152,7 +152,7 @@ async function upsert() {
       console.log(response);
     }
     state.value = "SUCCESS";
-    message.value = "Post created successfully";
+    message.value = isUpdate.value ? "User updated successfully" : "User created successfully";
   } catch (error) {
     state.value = "ERROR";
     console.log(error);

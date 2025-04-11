@@ -31,7 +31,7 @@
     >
       <template v-if="width > 1024" #table-header>
         <tr>
-          <th class="table-header-custom text-start">No</th>
+          <th class="table-header-custom text-start">No</th>  
           <th class="table-header-custom text-start">Tanggal</th>
           <th class="table-header-custom text-start">Judul</th>
           <th class="table-header-custom text-start">Action</th>
@@ -122,7 +122,7 @@ const toBeDelete = ref<PostWithCommentsAndTags | null>(null);
 async function getAllData(page?: number) {
   loading.value = true;
   try {
-    result.value = await repository.getAllPost({
+    result.value = await repository.getAllPostDashboard({
       page: page?.toString(),
     });
     loading.value = false;
