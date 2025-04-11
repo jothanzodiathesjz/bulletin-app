@@ -110,7 +110,7 @@ const user = ref(userData ? JSON.parse(userData) : null);
 const repository = container.get(TOKENS.PostRepository);
 
 const data = ref(DomainPost.formDataEmpty());
-const selected = ref<number | null>(null);
+const selected = ref<number | null>(user.value?.board_id ?? null);
 
 const state = ref<RequestState>("IDLE");
 const message = ref("");
