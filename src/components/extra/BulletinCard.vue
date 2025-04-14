@@ -34,19 +34,11 @@
       </div>
     </div>
 
-    <!-- "New" Tag -->
-    <div class="absolute top-0 right-0">
-      <div class=" text-white text-xs px-6 py-2 rounded-bl-lg">
-        <DrawingPinIcon class="text-primary-main"/>
-      </div>
-    </div>
+    
   </div>
 </template>
 
 <script setup lang="ts">
-import {
-  DrawingPinIcon,
-} from "@radix-icons/vue";
 import type { PostAttributes } from "@/domain/Post";
 
 defineProps<{

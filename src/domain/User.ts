@@ -1,6 +1,7 @@
 import type { UserAuthAttributes } from "./Auth";
+import type { Timestamps } from "./shared/Timestamps";
 
-export type UserAttributes = {
+export type UserAttributes = & Timestamps & {
     id: string;
     username: string;
     is_admin: number;
@@ -16,6 +17,10 @@ export class DomainUser {
     fullname: string;
     is_head: number;
     board_id: number;
+    created_at: string;
+    updated_at?: string;
+    deleted_at?: string;
+
     constructor(data: UserAttributes) {
         this.id = data.id;
         this.username = data.username;
@@ -23,6 +28,9 @@ export class DomainUser {
         this.fullname = data.fullname;
         this.is_head = data.is_head;
         this.board_id = data.board_id;
+        this.created_at = data.created_at;
+        this.updated_at = data.updated_at;
+        this.deleted_at = data.deleted_at;
     }
 
     static empty() {
@@ -32,7 +40,10 @@ export class DomainUser {
             is_admin: 0,
             board_id: 0,
             fullname: "",
-            is_head: 0
+            is_head: 0,
+            created_at: "",
+            updated_at: "",
+            deleted_at: "",
         })
     }
 }

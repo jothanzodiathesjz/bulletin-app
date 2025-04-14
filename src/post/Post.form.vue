@@ -178,5 +178,6 @@ onMounted(async () => {
     isUpdate.value = true;
     getPost();
   }
+  selected.value = user.value?.board_id ?? null;
 });
 </script>
