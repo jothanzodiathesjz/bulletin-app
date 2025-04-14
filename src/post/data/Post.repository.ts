@@ -30,7 +30,6 @@ export class PostRepositoryHttp implements PostRepository {
         };
     }
     async getAllPostDashboard(query?: IQueryMetadata): Promise<PostResponseArray> {
-        console.log(query)
         const response = await this.client.GET('/api/dashboard', query)
         if (!response.data) {
             throw new Error('Terjadi Kesalahan')
@@ -48,6 +47,13 @@ export class PostRepositoryHttp implements PostRepository {
 
     async get(id: string): Promise<PostWithCommentsAndTags> {
         const response = await this.client.GET(`/api/posts/${id}`)
+
+        if (!response.data) throw new Error('Terjadi Kesalahan')
+
+        return response.data as PostWithCommentsAndTags
+    }
+    async getOneDashboard(id: string): Promise<PostWithCommentsAndTags> {
+        const response = await this.client.GET(`/api/dashboard/${id}`)
 
         if (!response.data) throw new Error('Terjadi Kesalahan')
 

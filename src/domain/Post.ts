@@ -108,6 +108,7 @@ export interface PostRepository {
     getAllPost(query?: IQueryMetadata): Promise<PostResponseArray>
     getAllPostDashboard(query?: IQueryMetadata): Promise<PostResponseArray>
     get(id: string): Promise<PostWithCommentsAndTags>;
+    getOneDashboard(id: string): Promise<PostWithCommentsAndTags>;
     createComent(comment: CreateCommentAttributes, postId: string): Promise<PostWithCommentsAndTags>
     createPost(data: PostToDataAttributes): Promise<PostAttributes>;
     updatePost(data: PostToDataAttributes, id: string): Promise<PostAttributes>;

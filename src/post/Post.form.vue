@@ -157,7 +157,7 @@ async function upsert() {
 async function getPost() {
   Loaded.value = false;
   try {
-    const result = await repository.get(route.params.id as string);
+    const result = await repository.getOneDashboard(route.params.id as string);
     data.value = {
       body: result.body,
       title: result.title,
