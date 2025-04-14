@@ -35,7 +35,7 @@ import type { BoardAttributes } from "@/domain/Board";
   const repository = container.get(TOKENS.BoardRepository);
   const state = ref<RequestState>("LOADING");
   const boardList = ref<BoardAttributes[]>([]);
-  const filterBoard = [1,2,user.id as number];
+  const filterBoard = ref([1,2]);
 
   function validateAdmin() {
     if (user.id === 1 || user.id === 4) {
@@ -58,6 +58,7 @@ import type { BoardAttributes } from "@/domain/Board";
   
   onMounted(async () => {
     getTags();
+    filterBoard.value.push(user.board_id);
   });
   </script>
   
